@@ -1,0 +1,194 @@
+[
+ {
+  "doctype": "Custom Field", "name": "Workstation-custom_machine_details_sec",
+  "dt": "Workstation", "fieldname": "custom_machine_details_sec", "label": "Injection Moulding Machine Details",
+  "fieldtype": "Section Break", "insert_after": "description", "module": "Ampere Plast"
+ },
+ {
+  "doctype": "Custom Field", "name": "Workstation-custom_is_production_machine",
+  "dt": "Workstation", "fieldname": "custom_is_production_machine", "label": "Is Production Machine",
+  "fieldtype": "Check", "default": "1", "insert_after": "custom_machine_details_sec", "module": "Ampere Plast"
+ },
+ {
+  "doctype": "Custom Field", "name": "Workstation-custom_machine_type",
+  "dt": "Workstation", "fieldname": "custom_machine_type", "label": "Machine Type",
+  "fieldtype": "Select", "options": "Injection Moulding\nBlow Moulding\nAssembly\nPrinting\nPacking",
+  "depends_on": "eval:doc.custom_is_production_machine", "insert_after": "custom_is_production_machine",
+  "in_list_view": 1, "in_standard_filter": 1, "module": "Ampere Plast"
+ },
+ {
+  "doctype": "Custom Field", "name": "Workstation-custom_machine_tonnage",
+  "dt": "Workstation", "fieldname": "custom_machine_tonnage", "label": "Clamping Tonnage",
+  "fieldtype": "Float", "precision": "2", "depends_on": "eval:doc.custom_machine_type=='Injection Moulding'",
+  "insert_after": "custom_machine_type", "in_list_view": 1, "module": "Ampere Plast"
+ },
+ {
+  "doctype": "Custom Field", "name": "Workstation-custom_col_break_machine",
+  "dt": "Workstation", "fieldname": "custom_col_break_machine", "fieldtype": "Column Break",
+  "insert_after": "custom_machine_tonnage", "module": "Ampere Plast"
+ },
+ {
+  "doctype": "Custom Field", "name": "Workstation-custom_screw_diameter_mm",
+  "dt": "Workstation", "fieldname": "custom_screw_diameter_mm", "label": "Screw Diameter (mm)",
+  "fieldtype": "Float", "precision": "2", "insert_after": "custom_col_break_machine", "module": "Ampere Plast"
+ },
+ {
+  "doctype": "Custom Field", "name": "Workstation-custom_plc_device_id",
+  "dt": "Workstation", "fieldname": "custom_plc_device_id", "label": "PLC / IoT Device ID",
+  "fieldtype": "Data", "unique": 1, "insert_after": "custom_screw_diameter_mm",
+  "description": "Device ID used by the shop-floor gateway to post shot counts", "module": "Ampere Plast"
+ },
+ {
+  "doctype": "Custom Field", "name": "Workstation-custom_last_counter_value",
+  "dt": "Workstation", "fieldname": "custom_last_counter_value", "label": "Last Received Shot Counter",
+  "fieldtype": "Int", "read_only": 1, "no_copy": 1, "allow_on_submit": 0,
+  "insert_after": "custom_plc_device_id", "module": "Ampere Plast"
+ },
+ {
+  "doctype": "Custom Field", "name": "Workstation-custom_last_counter_time",
+  "dt": "Workstation", "fieldname": "custom_last_counter_time", "label": "Last Counter Received At",
+  "fieldtype": "Datetime", "read_only": 1, "no_copy": 1,
+  "insert_after": "custom_last_counter_value", "module": "Ampere Plast"
+ },
+ {
+  "doctype": "Custom Field", "name": "Workstation-custom_current_mould",
+  "dt": "Workstation", "fieldname": "custom_current_mould", "label": "Mould Currently Loaded",
+  "fieldtype": "Link", "options": "Mould Master", "read_only": 1, "no_copy": 1,
+  "insert_after": "custom_last_counter_time", "module": "Ampere Plast"
+ },
+
+ {
+  "doctype": "Custom Field", "name": "Item-custom_moulding_sec",
+  "dt": "Item", "fieldname": "custom_moulding_sec", "label": "Moulding Details",
+  "fieldtype": "Section Break", "insert_after": "default_bom",
+  "depends_on": "eval:doc.is_stock_item", "collapsible": 1, "module": "Ampere Plast"
+ },
+ {
+  "doctype": "Custom Field", "name": "Item-custom_is_moulded_item",
+  "dt": "Item", "fieldname": "custom_is_moulded_item", "label": "Is Moulded Item",
+  "fieldtype": "Check", "insert_after": "custom_moulding_sec", "module": "Ampere Plast"
+ },
+ {
+  "doctype": "Custom Field", "name": "Item-custom_part_weight_g",
+  "dt": "Item", "fieldname": "custom_part_weight_g", "label": "Part Weight (g)",
+  "fieldtype": "Float", "precision": "3", "depends_on": "eval:doc.custom_is_moulded_item",
+  "mandatory_depends_on": "eval:doc.custom_is_moulded_item",
+  "insert_after": "custom_is_moulded_item", "module": "Ampere Plast"
+ },
+ {
+  "doctype": "Custom Field", "name": "Item-custom_col_break_mould",
+  "dt": "Item", "fieldname": "custom_col_break_mould", "fieldtype": "Column Break",
+  "insert_after": "custom_part_weight_g", "module": "Ampere Plast"
+ },
+ {
+  "doctype": "Custom Field", "name": "Item-custom_default_mould",
+  "dt": "Item", "fieldname": "custom_default_mould", "label": "Default Mould",
+  "fieldtype": "Link", "options": "Mould Master", "depends_on": "eval:doc.custom_is_moulded_item",
+  "insert_after": "custom_col_break_mould", "module": "Ampere Plast"
+ },
+ {
+  "doctype": "Custom Field", "name": "Item-custom_max_regrind_percent",
+  "dt": "Item", "fieldname": "custom_max_regrind_percent", "label": "Max Allowed Regrind %",
+  "fieldtype": "Percent", "default": "20", "depends_on": "eval:doc.custom_is_moulded_item",
+  "insert_after": "custom_default_mould", "module": "Ampere Plast"
+ },
+
+ {
+  "doctype": "Custom Field", "name": "BOM-custom_moulding_sec",
+  "dt": "BOM", "fieldname": "custom_moulding_sec", "label": "Moulding Parameters",
+  "fieldtype": "Section Break", "insert_after": "with_operations", "collapsible": 1, "module": "Ampere Plast"
+ },
+ {
+  "doctype": "Custom Field", "name": "BOM-custom_mould",
+  "dt": "BOM", "fieldname": "custom_mould", "label": "Mould",
+  "fieldtype": "Link", "options": "Mould Master", "insert_after": "custom_moulding_sec", "module": "Ampere Plast"
+ },
+ {
+  "doctype": "Custom Field", "name": "BOM-custom_cavities",
+  "dt": "BOM", "fieldname": "custom_cavities", "label": "No of Cavities",
+  "fieldtype": "Int", "fetch_from": "custom_mould.no_of_cavities", "read_only": 1,
+  "insert_after": "custom_mould", "module": "Ampere Plast"
+ },
+ {
+  "doctype": "Custom Field", "name": "BOM-custom_col_break_mould",
+  "dt": "BOM", "fieldname": "custom_col_break_mould", "fieldtype": "Column Break",
+  "insert_after": "custom_cavities", "module": "Ampere Plast"
+ },
+ {
+  "doctype": "Custom Field", "name": "BOM-custom_cycle_time_sec",
+  "dt": "BOM", "fieldname": "custom_cycle_time_sec", "label": "Cycle Time (sec)",
+  "fieldtype": "Float", "precision": "2", "fetch_from": "custom_mould.cycle_time_sec",
+  "insert_after": "custom_col_break_mould", "module": "Ampere Plast"
+ },
+ {
+  "doctype": "Custom Field", "name": "BOM-custom_regrind_percent",
+  "dt": "BOM", "fieldname": "custom_regrind_percent", "label": "Planned Regrind %",
+  "fieldtype": "Percent", "insert_after": "custom_cycle_time_sec", "module": "Ampere Plast"
+ },
+
+ {
+  "doctype": "Custom Field", "name": "Work Order-custom_moulding_sec",
+  "dt": "Work Order", "fieldname": "custom_moulding_sec", "label": "Moulding & Shop Floor",
+  "fieldtype": "Section Break", "insert_after": "bom_no", "module": "Ampere Plast"
+ },
+ {
+  "doctype": "Custom Field", "name": "Work Order-custom_mould",
+  "dt": "Work Order", "fieldname": "custom_mould", "label": "Mould",
+  "fieldtype": "Link", "options": "Mould Master", "insert_after": "custom_moulding_sec",
+  "mandatory_depends_on": "eval:doc.custom_is_moulding_order", "module": "Ampere Plast"
+ },
+ {
+  "doctype": "Custom Field", "name": "Work Order-custom_is_moulding_order",
+  "dt": "Work Order", "fieldname": "custom_is_moulding_order", "label": "Is Moulding Order",
+  "fieldtype": "Check", "fetch_from": "production_item.custom_is_moulded_item",
+  "fetch_if_empty": 1, "insert_after": "custom_mould", "module": "Ampere Plast"
+ },
+ {
+  "doctype": "Custom Field", "name": "Work Order-custom_planned_shots",
+  "dt": "Work Order", "fieldname": "custom_planned_shots", "label": "Planned Shots",
+  "fieldtype": "Int", "read_only": 1, "insert_after": "custom_is_moulding_order", "module": "Ampere Plast"
+ },
+ {
+  "doctype": "Custom Field", "name": "Work Order-custom_col_break_mould",
+  "dt": "Work Order", "fieldname": "custom_col_break_mould", "fieldtype": "Column Break",
+  "insert_after": "custom_planned_shots", "module": "Ampere Plast"
+ },
+ {
+  "doctype": "Custom Field", "name": "Work Order-custom_shots_completed",
+  "dt": "Work Order", "fieldname": "custom_shots_completed", "label": "Shots Completed",
+  "fieldtype": "Int", "read_only": 1, "no_copy": 1, "allow_on_submit": 1,
+  "insert_after": "custom_col_break_mould", "module": "Ampere Plast"
+ },
+ {
+  "doctype": "Custom Field", "name": "Work Order-custom_total_rejected_qty",
+  "dt": "Work Order", "fieldname": "custom_total_rejected_qty", "label": "Total Rejected Qty",
+  "fieldtype": "Float", "precision": "2", "read_only": 1, "no_copy": 1, "allow_on_submit": 1,
+  "insert_after": "custom_shots_completed", "module": "Ampere Plast"
+ },
+ {
+  "doctype": "Custom Field", "name": "Work Order-custom_avg_oee",
+  "dt": "Work Order", "fieldname": "custom_avg_oee", "label": "Average OEE %",
+  "fieldtype": "Percent", "read_only": 1, "no_copy": 1, "allow_on_submit": 1,
+  "insert_after": "custom_total_rejected_qty", "module": "Ampere Plast"
+ },
+
+ {
+  "doctype": "Custom Field", "name": "Job Card-custom_mould",
+  "dt": "Job Card", "fieldname": "custom_mould", "label": "Mould",
+  "fieldtype": "Link", "options": "Mould Master", "insert_after": "workstation",
+  "allow_on_submit": 1, "module": "Ampere Plast"
+ },
+ {
+  "doctype": "Custom Field", "name": "Job Card-custom_shots_produced",
+  "dt": "Job Card", "fieldname": "custom_shots_produced", "label": "Shots Produced",
+  "fieldtype": "Int", "read_only": 1, "no_copy": 1, "allow_on_submit": 1,
+  "insert_after": "custom_mould", "module": "Ampere Plast"
+ },
+
+ {
+  "doctype": "Custom Field", "name": "Stock Entry-custom_shift_production_entry",
+  "dt": "Stock Entry", "fieldname": "custom_shift_production_entry", "label": "Shift Production Entry",
+  "fieldtype": "Link", "options": "Shift Production Entry", "read_only": 1, "no_copy": 1,
+  "insert_after": "work_order", "module": "Ampere Plast"
+ }
+]

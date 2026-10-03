@@ -20,6 +20,7 @@ app_license = "mit"
 # 		"has_permission": "ampere_plast.api.permission.has_app_permission"
 # 	}
 # ]
+fixtures=[{"dt":"Custom Field", "filters":[['module','in',['Ampere Plast']]]}]
 
 # Includes in <head>
 # ------------------

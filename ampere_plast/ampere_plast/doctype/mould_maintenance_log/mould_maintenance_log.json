@@ -1,0 +1,49 @@
+{
+ "actions": [],
+ "autoname": "naming_series:",
+ "creation": "2026-01-10 10:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "is_submittable": 1,
+ "field_order": [
+  "naming_series", "mould", "mould_name", "maintenance_type", "column_break_1",
+  "maintenance_date", "shots_at_maintenance", "performed_by", "downtime_hours",
+  "section_detail", "work_done", "column_break_2", "maintenance_cost",
+  "reset_shot_counter", "next_due_after_shots", "amended_from"
+ ],
+ "fields": [
+  {"fieldname": "naming_series", "fieldtype": "Select", "label": "Series", "options": "MML-.YYYY.-.####", "reqd": 1, "set_only_once": 1},
+  {"fieldname": "mould", "fieldtype": "Link", "label": "Mould", "options": "Mould Master", "reqd": 1, "in_list_view": 1},
+  {"fieldname": "mould_name", "fieldtype": "Data", "label": "Mould Name", "fetch_from": "mould.mould_name", "read_only": 1},
+  {"fieldname": "maintenance_type", "fieldtype": "Select", "label": "Maintenance Type", "options": "Preventive\nBreakdown\nRefurbishment", "reqd": 1, "in_list_view": 1, "in_standard_filter": 1},
+  {"fieldname": "column_break_1", "fieldtype": "Column Break"},
+  {"fieldname": "maintenance_date", "fieldtype": "Date", "label": "Maintenance Date", "reqd": 1, "default": "Today", "in_list_view": 1},
+  {"fieldname": "shots_at_maintenance", "fieldtype": "Int", "label": "Shot Count at Maintenance", "read_only": 1},
+  {"fieldname": "performed_by", "fieldtype": "Link", "label": "Performed By", "options": "Employee"},
+  {"fieldname": "downtime_hours", "fieldtype": "Float", "label": "Downtime (hours)", "precision": "2"},
+  {"fieldname": "section_detail", "fieldtype": "Section Break"},
+  {"fieldname": "work_done", "fieldtype": "Text Editor", "label": "Work Done", "reqd": 1},
+  {"fieldname": "column_break_2", "fieldtype": "Column Break"},
+  {"fieldname": "maintenance_cost", "fieldtype": "Currency", "label": "Maintenance Cost"},
+  {"fieldname": "reset_shot_counter", "fieldtype": "Check", "label": "Reset 'Shots Since Last Maintenance'", "default": "1"},
+  {"fieldname": "next_due_after_shots", "fieldtype": "Int", "label": "Next Due After (shots)", "read_only": 1},
+  {"fieldname": "amended_from", "fieldtype": "Link", "label": "Amended From", "options": "Mould Maintenance Log", "read_only": 1, "no_copy": 1, "print_hide": 1}
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-01-10 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Ampere Plast",
+ "name": "Mould Maintenance Log",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {"amend": 1, "cancel": 1, "create": 1, "delete": 1, "email": 1, "export": 1, "print": 1, "read": 1, "report": 1, "role": "Manufacturing Manager", "share": 1, "submit": 1, "write": 1},
+  {"create": 1, "read": 1, "report": 1, "role": "Manufacturing User", "submit": 1, "write": 1}
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

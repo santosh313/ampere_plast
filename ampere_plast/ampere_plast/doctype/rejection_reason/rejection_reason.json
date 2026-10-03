@@ -1,0 +1,36 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "allow_rename": 1,
+ "autoname": "field:reason_name",
+ "creation": "2026-01-10 10:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": ["reason_name", "category", "column_break_1", "is_reworkable", "send_scrap_to_regrind", "disabled", "description"],
+ "fields": [
+  {"fieldname": "reason_name", "fieldtype": "Data", "label": "Reason Name", "reqd": 1, "unique": 1, "in_list_view": 1},
+  {"fieldname": "category", "fieldtype": "Select", "label": "Category", "options": "Process\nMaterial\nMould\nMachine\nOperator\nOther", "reqd": 1, "in_list_view": 1, "in_standard_filter": 1},
+  {"fieldname": "column_break_1", "fieldtype": "Column Break"},
+  {"fieldname": "is_reworkable", "fieldtype": "Check", "label": "Is Reworkable", "in_list_view": 1},
+  {"fieldname": "send_scrap_to_regrind", "fieldtype": "Check", "label": "Send Scrap to Regrind", "default": "1"},
+  {"fieldname": "disabled", "fieldtype": "Check", "label": "Disabled"},
+  {"fieldname": "description", "fieldtype": "Small Text", "label": "Description"}
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-01-10 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Ampere Plast",
+ "name": "Rejection Reason",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {"create": 1, "delete": 1, "email": 1, "export": 1, "print": 1, "read": 1, "report": 1, "role": "Manufacturing Manager", "share": 1, "write": 1},
+  {"read": 1, "role": "Manufacturing User"}
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}
